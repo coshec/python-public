@@ -6,10 +6,10 @@ from email.mime.text import MIMEText
 # set up the SMTP server
 s = smtplib.SMTP(host='smtp-mail.outlook.com', port=587)
 s.starttls()
-s.login('kaushik.kochhar@marketsandmarkets.com', 'Bot33739')
+s.login('name@domain.com', '*')
 msg = MIMEMultipart()
-msg['From']='kaushik.kochhar@marketsandmarkets.com'
-msg['To']='8609904419@txt.att.net'
+msg['From']='name@domain.com'
+msg['To']='9999999999@txt.att.net'
 msg['Subject']="This is TEST"
 # add in the message body
 message="Script is over"
