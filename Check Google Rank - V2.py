@@ -1,8 +1,8 @@
 """
-Take name of market and search in google - first 25 search results
+Take in keyword and search in google - first 25 search results
 """
 """
-- check position of MnM and local competition
+- check position of domain and local competition
 """
 import requests
 from bs4 import BeautifulSoup
@@ -64,15 +64,14 @@ def scrape_google(search_term, number_results, language_code):
         raise Exception("Appears to be an issue with your connection")
 
 
-myinfile0= open(r"E:\\kaushik kochhar\\d\\pyfiles\\Local_Competition_Master.txt","r")
+myinfile0= open(r"E:\\Local_Competition_Master.txt","r")
 competition_list = myinfile0.read()
 myinfile0.close()
 
 
-# df=pd.read_excel(r'‪‪E:\Kaushik Kochhar\US trip - activities\HS - Misc\Revamp - Compare with competition\20190902\Input100.xlsx',encoding='Latin-1')
-‪df=pd.read_excel('E:\\Kaushik Kochhar\\US trip - activities\\Report ARR - Leads - Ranking\\CRM Exports\\2019Q2-4.xlsx',encoding='Latin-1')
+df=pd.read_excel('E:\\Keywords.xlsx',encoding='Latin-1')
 
-df[' Title']=df['reportname'].apply(lambda x: re.findall('[\w\-\(\)\/ &]+Market',x)[0])
+df[' Title']=df['reportname'].apply(lambda x: re.findall('[\w\-\(\)\/ &]',x)[0])
 # df['Short Title']=df['Report Name']
 gresults_list=[]
 gresults_row=[]
@@ -107,14 +106,14 @@ for i,rec in enumerate(range(len(df))):
       if linkdotcom in competition_list:
     #if MnM link already found, no need to count competition; else count them till we find MnM link
           Link_type="Competition"
-      elif linkdotcom == 'marketsandmarkets.com':
-          Link_type="MnM"
+      elif linkdotcom == 'my_domain.com':
+          Link_type="my_domain"
       gresults_row_result=[result['rank'],result['link'],result['title'],result['description'],Link_type,linkdotcom]
       gresults_row=gresults_row_common+gresults_row_result
       gresults_list.append(gresults_row)
   print(i,"# ","Record processed: ",search_string)
 
 dfo=pd.DataFrame(gresults_list,columns=gresults_cols)
-dfo.to_excel(r'‪E:\Kaushik Kochhar\US trip - activities\HS - Misc\Revamp - Compare with competition\Small Domains\V4+ - Duck or orange - past version Green-Dark Green-O.xlsx',index=False)
+dfo.to_excel(r'‪E:\My_results.xlsx',index=False)
 
     
